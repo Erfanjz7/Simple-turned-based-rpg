@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Knight's Quest - Main Menu</title>
+    <style>
+        body {
+            margin: 0;
+            overflow: hidden;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background: #87CEEB; /* Sky blue background */
+            font-family: 'Press Start 2P', cursive;
+            image-rendering: pixelated; /* Ensures pixel art stays crisp */
+        }
+
+        canvas {
+            display: block;
+        }
+
+        .menu {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            text-align: center;
+            background: rgba(0, 0, 0, 0.7); /* Semi-transparent black */
+            padding: 20px;
+            border: 4px solid #FFF;
+            box-shadow: 0 0 0 4px #000;
+            color: #FFF;
+        }
+
+        .menu h1 {
+            font-size: 32px;
+            margin-bottom: 20px;
+            text-shadow: 2px 2px #000;
+        }
+
+        .menu button {
+            display: block;
+            width: 200px;
+            padding: 10px;
+            margin: 10px auto;
+            font-size: 16px;
+            background: #555;
+            color: #FFF;
+            border: 2px solid #FFF;
+            box-shadow: 0 0 0 2px #000;
+            cursor: pointer;
+            font-family: 'Press Start 2P', cursive;
+            transition: background 0.2s;
+        }
+
+        .menu button:hover {
+            background: #777;
+        }
+
+        .menu button.selected {
+            background: #FFD700;
+            color: #000;
+        }
+
+        /* Import pixel font */
+        @import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
+    </style>
+</head>
+<body>
+    <canvas id="gameCanvas"></canvas>
+    <div class="menu">
+        <h1>Knight's Quest</h1>
+        <button class="selected">New Game</button>
+        <button>Load Game</button>
+        <button>Settings</button>
+    </div>
+
+    <script>
+        const canvas = document.getElementById('gameCanvas');
+        const ctx = canvas.getContext('2d');
+
+        // Set canvas size
+        canvas.width = 800;
+        canvas.height = 600;
+
+        // Grass animation variables
+        const grassCount = 100;
+        const grass = [];
+        const windSpeed = 0.02;
+        let windOffset = 0;
+
+        // Tree and knight positions
+        const treeX = canvas.width * 0.7;
+        const treeY = canvas.height * 0.3;
+        const knightX = canvas.width * 0.65;
+        const knightY = canvas.height * 0.7;
+
+        // Initialize grass
+        for (let i = 0; i < grassCount; i++) {
+            grass.push({
+                x: Math.random() * canvas.width,
+                y: canvas.height * 0.6 + Math.random() * canvas.height * 0.4,
+                height: 20 + Math.random() * 20,
+                sway: 0
+            });
+        }
+
+        // Menu navigation
+        const buttons = document.querySelectorAll('.menu button');
+        let selectedIndex = 0;
+
+        function updateSelection() {
+            buttons.forEach((button, index) => {
+                button.classList.toggle('selected', index === selectedIndex);
+            });
+        }
+
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'ArrowUp') {
+                selectedIndex = (selectedIndex - 1 + buttons.length) % buttons.length;
+                updateSelection();
+            } else if (e.key === 'ArrowDown') {
+                selectedIndex = (selectedIndex + 1) % buttons.length;
+                updateSelection();
+            } else if (e.key === 'Enter') {
+                const selectedButton = buttons[selectedIndex];
+                alert(`${selectedButton.textContent} selected! (Functionality to be implemented)`);
+            }
+        });
+
+        function drawPixelArt() {
+            // Clear canvas
+            ctx.fillStyle = '#87CEEB';
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+            // Draw ground
+            ctx.fillStyle = '#228B22';
+            ctx.fillRect(0, canvas.height * 0.6, canvas.width, canvas.height * 0.4);
+
+            // Draw sun
+            ctx.fillStyle = '#FFD700';
+            ctx.beginPath();
+            ctx.arc(canvas.width * 0.2, canvas.height * 0.2, 40, 0, Math.PI * 2);
+            ctx.fill();
+
+            // Draw tree trunk
+            ctx.fillStyle = '#8B4513';
+            ctx.fillRect(treeX - 10, treeY, 20, canvas.height * 0.4);
+
+            // Draw tree foliage
+            ctx.fillStyle = '#006400';
+            ctx.beginPath();
+            ctx.arc(treeX, treeY, 60, 0, Math.PI * 2);
+            ctx.fill();
+
+            // Draw knight (simplified pixel art)
+            ctx.fillStyle = '#C0C0C0'; // Armor
+            ctx.fillRect(knightX - 15, knightY - 30, 30, 40); // Body
+            ctx.fillStyle = '#4682B4'; // Blue cape
+            ctx.fillRect(knightX - 20, knightY -30, 40, 30);
+            ctx.fillStyle = '#000'; // Helmet
+            ctx.fillRect(knightX - 10, knightY - 40, 20, 10);
+
+            // Draw grass with wind animation
+            windOffset += windSpeed;
+            grass.forEach(g => {
+                const sway = Math.sin(windOffset + g.x * 0.01) * 5;
+                ctx.fillStyle = '#32CD32';
+                ctx.beginPath();
+                ctx.moveTo(g.x, g.y);
+                ctx.lineTo(g.x + sway, g.y - g.height);
+                ctx.lineTo(g.x + 2, g.y);
+                ctx.fill();
+            });
+        }
+
+        function animate() {
+            drawPixelArt();
+            requestAnimationFrame(animate);
+        }
+
+        // Start animation
+        animate();
+    </script>
+</body>
+</html>

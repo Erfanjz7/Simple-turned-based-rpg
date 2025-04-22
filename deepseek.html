@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Pixel Knight RPG</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
+
+        body {
+            margin: 0;
+            overflow: hidden;
+            background-color: #5a8d5a;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            font-family: 'Press Start 2P', cursive;
+        }
+
+        #gameContainer {
+            position: relative;
+            width: 800px;
+            height: 600px;
+        }
+
+        #gameCanvas {
+            position: absolute;
+            image-rendering: pixelated;
+        }
+
+        #menu {
+            position: relative;
+            z-index: 2;
+            text-align: center;
+            margin-top: 100px;
+        }
+
+        .menu-item {
+            color: #fff;
+            text-shadow: 2px 2px #000;
+            margin: 20px 0;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .menu-item:hover {
+            color: #ffd700;
+            transform: scale(1.1);
+        }
+
+        #title {
+            color: #ffd700;
+            font-size: 36px;
+            text-shadow: 3px 3px #000;
+            margin-bottom: 50px;
+        }
+    </style>
+</head>
+<body>
+    <div id="gameContainer">
+        <canvas id="gameCanvas"></canvas>
+        <div id="menu">
+            <h1 id="title">KNIGHT'S ASCENT</h1>
+            <div class="menu-item" id="newGame">NEW QUEST</div>
+            <div class="menu-item" id="loadGame">CONTINUE</div>
+            <div class="menu-item" id="settings">SETTINGS</div>
+        </div>
+    </div>
+
+    <script>
+        const canvas = document.getElementById('gameCanvas');
+        const ctx = canvas.getContext('2d');
+        
+        // Set canvas size
+        canvas.width = 800;
+        canvas.height = 600;
+
+        // Pixel art elements
+        const knight = {
+            x: 300,
+            y: 400,
+            width: 32,
+            height: 32,
+            color: '#2c2c2c'
+        };
+
+        const tree = {
+            x: 500,
+            y: 300,
+            width: 64,
+            height: 96,
+            color: '#3d5a1a'
+        };
+
+        // Animation variables
+        let grassOffset = 0;
+        let windPosition = -100;
+        let animationFrame = 0;
+
+        function drawScene() {
+            // Clear canvas
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+            // Draw sky
+            ctx.fillStyle = '#87CEEB';
+            ctx.fillRect(0, 0, canvas.width, canvas.height/2);
+
+            // Draw sun
+            ctx.fillStyle = '#FFD700';
+            ctx.beginPath();
+            ctx.arc(700, 100, 40, 0, Math.PI * 2);
+            ctx.fill();
+
+            // Draw ground
+            ctx.fillStyle = '#5a8d5a';
+            ctx.fillRect(0, canvas.height/2, canvas.width, canvas.height/2);
+
+            // Draw animated grass
+            drawAnimatedGrass();
+
+            // Draw tree
+            ctx.fillStyle = tree.color;
+            ctx.fillRect(tree.x, tree.y, tree.width, tree.height);
+
+            // Draw knight
+            ctx.fillStyle = knight.color;
+            ctx.fillRect(knight.x, knight.y, knight.width, knight.height);
+
+            // Draw wind trail
+            drawWind();
+
+            // Animate grass every 10 frames
+            if(animationFrame % 10 === 0) {
+                grassOffset = grassOffset === 0 ? 2 : 0;
+            }
+
+            windPosition += 2;
+            if(windPosition > canvas.width + 100) windPosition = -100;
+
+            animationFrame++;
+            requestAnimationFrame(drawScene);
+        }
+
+        function drawAnimatedGrass() {
+            ctx.fillStyle = '#6b9e6b';
+            for(let y = canvas.height/2; y < canvas.height; y += 4) {
+                for(let x = 0; x < canvas.width; x += 4) {
+                    if((x + grassOffset + y) % 8 < 4) {
+                        ctx.fillRect(x, y, 2, 2);
+                    }
+                }
+            }
+        }
+
+        function drawWind() {
+            ctx.strokeStyle = 'rgba(255, 255, 255, 0.3)';
+            ctx.setLineDash([10, 15]);
+            ctx.beginPath();
+            ctx.moveTo(windPosition, 350);
+            ctx.lineTo(windPosition + 100, 375);
+            ctx.lineTo(windPosition + 200, 350);
+            ctx.stroke();
+        }
+
+        // Handle window resize
+        window.addEventListener('resize', () => {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        });
+
+        // Menu interactions
+        document.querySelectorAll('.menu-item').forEach(item => {
+            item.addEventListener('click', () => {
+                // Add your game logic here
+                alert(item.textContent + ' selected!');
+            });
+        });
+
+        // Start animation
+        drawScene();
+    </script>
+</body>
+</html>

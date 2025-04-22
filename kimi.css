@@ -1,0 +1,120 @@
+body {
+    margin: 0;
+    overflow: hidden;
+    font-family: 'Courier New', Courier, monospace;
+}
+
+.background {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background-color: #8FBC8F; /* Green plain */
+}
+
+.sky {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 50%;
+    background: linear-gradient(to bottom, #87CEEB, #8FBC8F);
+}
+
+.sun {
+    position: absolute;
+    top: 20%;
+    right: 20%;
+    width: 100px;
+    height: 100px;
+    background-color: #FFD700;
+    border-radius: 50%;
+    box-shadow: 0 0 20px #FFD700;
+}
+
+.tree {
+    position: absolute;
+    bottom: 0;
+    left: 30%;
+    width: 200px;
+    height: 300px;
+    background-image: url('tree.png'); /* Replace with your tree image */
+    background-size: cover;
+}
+
+.knight {
+    position: absolute;
+    bottom: 0;
+    left: 40%;
+    width: 100px;
+    height: 200px;
+    background-image: url('knight.png'); /* Replace with your knight image */
+    background-size: cover;
+}
+
+.grass {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    height: 100px;
+    background-image: url('grass.png'); /* Replace with your grass image */
+    background-size: repeat;
+    animation: wind 5s infinite alternate;
+}
+
+.wind {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    height: 100px;
+    background-image: url('wind.png'); /* Replace with your wind trail image */
+    background-size: repeat;
+    animation: windTrail 5s infinite alternate;
+}
+
+.menu {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+    color: #000;
+}
+
+.menu h1 {
+    font-size: 2em;
+    margin-bottom: 20px;
+}
+
+.menu button {
+    display: block;
+    margin: 10px auto;
+    padding: 10px 20px;
+    font-size: 1em;
+    cursor: pointer;
+    background-color: #FFD700;
+    border: none;
+    border-radius: 5px;
+    color: #000;
+}
+
+.menu button:hover {
+    background-color: #FFA500;
+}
+
+@keyframes wind {
+    from {
+        transform: translateX(0);
+    }
+    to {
+        transform: translateX(20px);
+    }
+}
+
+@keyframes windTrail {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
