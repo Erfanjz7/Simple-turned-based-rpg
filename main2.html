@@ -11,99 +11,51 @@
       box-sizing: border-box;
     }
 
-    html, body {
+    body, html {
       margin: 0;
       padding: 0;
       height: 100%;
-      overflow: hidden;
       font-family: 'Press Start 2P', cursive;
+      background: url('./assets/images/6c71e5bd-15a8-42e1-b257-c3c3fa90f751.png') no-repeat center center;
+      background-size: cover;
     }
 
-    body {
-  background: url('./assets/images/6c71e5bd-15a8-42e1-b257-c3c3fa90f751.png') no-repeat center center fixed;
-  background-size: contain; /* قبلاً cover بود */
-  background-repeat: no-repeat;
-  background-position: center center;
-  background-color: #000; /* در صورتی که تصویر تمام صفحه رو پر نکنه */
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-
     .menu {
-      background-color: rgba(0, 0, 0, 0.6);
-      padding: 2rem;
-      border-radius: 12px;
-      text-align: center;
-      animation: float 5s ease-in-out infinite;
+      position: absolute;
+      top: 25%;
+      right: 5%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 20px;
     }
 
     .menu h1 {
-      color: #fff;
+      color: white;
       font-size: 1.5rem;
-      margin-bottom: 2rem;
-      text-shadow: 2px 2px #000;
+      text-shadow: 3px 3px 0px #000;
+      margin-bottom: 40px;
     }
 
     .menu button {
-      display: block;
-      width: 220px;
-      margin: 1rem auto;
-      padding: 1rem;
-      background: #111;
-      color: #fff;
-      border: 2px solid #fff;
+      width: 200px;
+      padding: 15px;
+      background-color: #111;
+      color: white;
       font-size: 0.8rem;
+      border: 3px solid white;
+      text-shadow: 1px 1px #000;
       cursor: pointer;
-      transition: background 0.3s, transform 0.2s;
+      transition: transform 0.2s, background-color 0.3s;
     }
 
     .menu button:hover {
-      background: #333;
+      background-color: #333;
       transform: scale(1.05);
     }
-
-    @keyframes float {
-      0%, 100% {
-        transform: translateY(0px);
-      }
-      50% {
-        transform: translateY(-5px);
-      }
-    }
-
-    .bird {
-      position: absolute;
-      top: 50px;
-      width: 60px;
-      height: 40px;
-      background: url('https://i.imgur.com/JkV8s5p.png') no-repeat center;
-      background-size: contain;
-      animation: fly 20s linear infinite;
-    }
-
-    @keyframes fly {
-      0% {
-        left: -100px;
-        top: 80px;
-        transform: scaleX(1);
-      }
-      50% {
-        top: 100px;
-      }
-      100% {
-        left: 110%;
-        top: 60px;
-        transform: scaleX(1);
-      }
-    }
-
   </style>
 </head>
 <body>
-
-  <div class="bird"></div>
 
   <div class="menu">
     <h1>Knight's Dungeon</h1>
@@ -114,15 +66,15 @@
 
   <script>
     function newGame() {
-      alert("Starting a new game...");
+      alert("New Game selected");
     }
 
     function loadGame() {
-      alert("Loading saved game...");
+      alert("Load Game selected");
     }
 
     function settings() {
-      alert("Opening settings...");
+      alert("Settings selected");
     }
   </script>
 
