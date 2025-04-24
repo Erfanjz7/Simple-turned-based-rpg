@@ -11,4 +11,4 @@ document.getElementById('new-game').addEventListener('click', () => {
     alert('Opening settings...');
   });
 
-  //asfasfsdfsdgsdfsd
+  //asfasfsdfsdgsdfsdasdnadnasndasdansdadsadasd
