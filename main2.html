@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Knight's Dungeon</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body, html {
+      margin: 0;
+      padding: 0;
+      height: 100%;
+      font-family: 'Press Start 2P', cursive;
+      background: url('./assets/images/6c71e5bd-15a8-42e1-b257-c3c3fa90f751.png') no-repeat center center;
+      background-size: cover;
+    }
+
+    .menu {
+      position: absolute;
+      top: 25%;
+      right: 5%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 20px;
+    }
+
+    .menu h1 {
+      /*color: linear-gradient(to right, #ffffff, #467d3e);*/
+      background-image: linear-gradient(45deg, #21a350, #000000);
+      background-clip: text;
+      color: transparent;
+      font-size: 1.5rem;
+      /*text-shadow: 3px 3px 0px #000;*/
+      margin-bottom: 40px;
+      font-weight: bold;
+      
+    }
+
+    /*.menu button {
+      width: 200px;
+      padding: 15px;
+      background-image: linear-gradient(to right, #1f0808, #467d3e);
+      opacity: 0.8;
+      color: white;
+      font-size: 0.8rem;
+      border: 3px solid white;
+      text-shadow: 1px 1px #000;
+      cursor: pointer;
+      transition: transform 0.2s, background-color 0.3s;
+      font-family: 'Press Start 2P', cursive;
+    }
+
+    .menu button:hover {
+      background-color: #333;
+      transform: scale(1.05);
+    }
+      */
+      .menu button {
+        /* Base medieval styling */
+        width: 200px;
+        padding: 15px;
+        background-image: linear-gradient(45deg , #000000, #3ea32e);
+        border: 3px solid #6d6d6d;
+        border-radius: 6px;
+        color: white;
+        font-size: 0.8rem;
+        font-family: 'Press Start 2P', cursive;
+        text-shadow: 1px 1px 0 #000;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        box-shadow: 
+          0 5px 0 #333,
+          0 0 8px rgba(255, 255, 255, 0.1),
+          inset 0 -3px 5px rgba(0,0,0,0.7);
+        
+        /* Ornate details inspired by [[3]][[7]] */
+        position: relative;
+        overflow: hidden;
+      }
+  
+      .menu button::before {
+        content: '';
+        position: absolute;
+        top: -5px;
+        left: -5px;
+        right: -5px;
+        bottom: -5px;
+        background: 
+          linear-gradient(45deg, transparent 50%, rgba(255,255,255,0.1) 50%), 
+          linear-gradient(-45deg, transparent 50%, rgba(255,255,255,0.1) 50%);
+        background-size: 20px 20px;
+        animation: shimmer 2s infinite;
+      }
+  
+      .menu button:hover {
+        background: linear-gradient(45deg, #6d6d6d, #4a4a4a);
+        transform: translateY(-3px);
+        box-shadow: 
+          0 7px 0 #333,
+          0 0 12px rgba(255, 255, 255, 0.3),
+          inset 0 -5px 5px rgba(0,0,0,0.9);
+      }
+  
+      .menu button:active {
+        transform: translateY(2px);
+        box-shadow: 0 3px 0 #333, inset 0 3px 5px rgba(0,0,0,0.9);
+      }
+  
+      @keyframes shimmer {
+        0% { background-position: 0 0; }
+        100% { background-position: 20px 20px; }
+      }
+  </style>
+</head>
+<body>
+
+  <div class="menu">
+    <h1>Knight's Dungeon</h1>
+    <button onclick="newGame()">New Game</button>
+    <button onclick="loadGame()">Load Game</button>
+    <button onclick="settings()">Settings</button>
+  </div>
+
+  <script>
+    function newGame() {
+      alert("New Game selected");
+    }
+
+    function loadGame() {
+      alert("Load Game selected");
+    }
+
+    function settings() {
+      alert("Settings selected");
+    }
+  </script>
+
+</body>
+</html>
